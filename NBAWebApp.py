@@ -22,17 +22,17 @@ import os
 
 @st.cache
 def NBA_Data (nrows):
-    data=pd.read_csv('C:/Users/lasin/APP/NBA_Table1.csv', nrows=nrows)
+    data=pd.read_csv(NBA_Table1.csv, nrows=nrows)
     data.sort_values('Name')
     return data
 @st.cache
 def NBA_Fig(nrows):
-    Fig=pd.read_csv('C:/Users/lasin/APP/NBAFigDisplay.csv', nrows=nrows)
+    Fig=pd.read_csv(NBAFigDisplay.csv, nrows=nrows)
     return Fig 
 
 @st.cache
 def NBA_Fig2(nrows):
-    Fig2=pd.read_csv('C:/Users/lasin/APP/NBAFigDisplay2.csv', nrows=nrows)
+    Fig2=pd.read_csv(NBAFigDisplay2.csv, nrows=nrows)
     return Fig2 
     
 st.title("NBA Shooting")
@@ -43,10 +43,11 @@ st.subheader("""Data""")
 
 data_load_state = st.text('Loading data...')
 data = NBA_Data(1000)
-data_load_state.text('Loading data...done!')
-
 Figure1 = NBA_Fig(4000)
 Figure2 = NBA_Fig2(4000)
+data_load_state.text('Loading data...done!')
+
+
 
 st.text('Table of NBA Players (sort by clicking on a column)')
 st.write(data)
