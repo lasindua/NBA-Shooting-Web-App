@@ -22,17 +22,17 @@ import os
 
 @st.cache
 def NBA_Data (nrows):
-    data=pd.read_csv('C:/Users/lasin/NBA_Table1.csv', nrows=nrows)
+    data=pd.read_csv('C:/Users/lasin/APP/NBA_Table1.csv', nrows=nrows)
     data.sort_values('Name')
     return data
 @st.cache
 def NBA_Fig(nrows):
-    Fig=pd.read_csv('C:/Users/lasin/NBAFigDisplay.csv', nrows=nrows)
+    Fig=pd.read_csv('C:/Users/lasin/APP/NBAFigDisplay.csv', nrows=nrows)
     return Fig 
 
 @st.cache
 def NBA_Fig2(nrows):
-    Fig2=pd.read_csv('C:/Users/lasin/NBAFigDisplay2.csv', nrows=nrows)
+    Fig2=pd.read_csv('C:/Users/lasin/APP/NBAFigDisplay2.csv', nrows=nrows)
     return Fig2 
     
 st.title("NBA Shooting")
