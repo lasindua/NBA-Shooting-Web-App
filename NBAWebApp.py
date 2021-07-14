@@ -71,11 +71,13 @@ if PlayerName:
     Figure1 = Figure1[Figure1['Name'] == PlayerName]
     Figure2 = Figure2[Figure2['Name'] == PlayerName]
     BarGraph1 = alt.Chart(Figure1).mark_bar().encode(
-        x = 'Shot Distance',
-        y = 'FG%').properties(width=400, height=400)
+        x = alt.X('Shot Distance'),
+        y = alt.Y('FG%',
+              scale = alt.Scale(domain =[0, 1]))).properties(width=400,height=400)
     BarGraph2 = alt.Chart(Figure2).mark_bar().encode(
-        x = 'Shot Distance',
-        y = '% of FG taken').properties(width=400, height=400)
+        x = alt.X('Shot Distance'),
+        y = alt.Y('% of FG taken', 
+              scale = alt.Scale(domain =[0, 1]))).properties(width=400, height=400)
     CombinedGraph = alt.vconcat(BarGraph1,BarGraph2)
     st.altair_chart(CombinedGraph)
     
