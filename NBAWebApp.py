@@ -22,17 +22,17 @@ import os
 
 @st.cache
 def NBA_Data (nrows):
-    data=pd.read_csv(NBA_Table1.csv, nrows=nrows)
+    data=pd.read_csv('https://raw.githubusercontent.com/lasindua/NBA-Shooting-Web-App/main/NBA_Table1.csv', nrows=nrows)
     data.sort_values('Name')
     return data
 @st.cache
 def NBA_Fig(nrows):
-    Fig=pd.read_csv(NBAFigDisplay.csv, nrows=nrows)
+    Fig=pd.read_csv('https://raw.githubusercontent.com/lasindua/NBA-Shooting-Web-App/main/NBAFigDisplay.csv', nrows=nrows)
     return Fig 
 
 @st.cache
 def NBA_Fig2(nrows):
-    Fig2=pd.read_csv(NBAFigDisplay2.csv, nrows=nrows)
+    Fig2=pd.read_csv('https://raw.githubusercontent.com/lasindua/NBA-Shooting-Web-App/main/NBAFigDisplay2.csv', nrows=nrows)
     return Fig2 
     
 st.title("NBA Shooting")
