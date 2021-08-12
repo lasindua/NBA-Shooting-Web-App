@@ -9,16 +9,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import altair as alt
-import os
-#import matplotlib.pyplot as plt
-
-# print(os.getcwd())
-# dir_path = os.path.dirname(os.path.realpath(__file__))
-# print(dir_path)
-
-
-
-
 
 @st.cache
 def NBA_Data (nrows):
@@ -35,51 +25,48 @@ def NBA_Fig2(nrows):
     Fig2=pd.read_csv('https://raw.githubusercontent.com/lasindua/NBA-Shooting-Web-App/main/NBAFigDisplay2.csv', nrows=nrows)
     return Fig2 
     
-st.title("NBA Shooting")
+st.title("NBA Shooting :basketball:")
 
-st.header("Percentage of shots taken from various distances and the field goal percentage")
-st.subheader("""Data""")
+st.header("Percentage of shots taken from various distances and the corresponding field goal percentage")
+st.subheader("""Data from the 2020-2021 Season""")
 
 
 data_load_state = st.text('Loading data...')
 data = NBA_Data(1000)
 Figure1 = NBA_Fig(4000)
 Figure2 = NBA_Fig2(4000)
-data_load_state.text('Loading data...done!')
+data_load_state.text('Data loaded')
 
 
-
+#Cleaned up Dataframe
 st.text('Table of NBA Players (sort by clicking on a column)')
+st.markdown('_*Data source: Basketball-Reference.com*_')
 st.write(data)
 
-st.subheader('Visualized Player Shooting Stats')
+st.header("""Visualized Player Shooting Stats""")
 PlayerName = st.selectbox('Please select player: ',
                           data['Name'].unique())
 
-#Fig = data.plot.bar(rot=0)
-# FGA_Distance = st.selectbox('Please select distance for % of shots taken: ',
-#                             ('2PA', '0-3A', '3-10A', '10-16A', '16-3PA', '3PA'))
-# 
-# FG_Distance = st.selectbox('Please select distance for FG%: ',
-#                             ('2P', '0-3', '3-10', '10-16', '16-3P', '3P'))
-# 
-
+#Chart Display
 if PlayerName:
     data = data[data['Name'] == PlayerName]
     st.write(data)
     st.write('\n')
     Figure1 = Figure1[Figure1['Name'] == PlayerName]
     Figure2 = Figure2[Figure2['Name'] == PlayerName]
+    st.subheader(PlayerName)
     BarGraph1 = alt.Chart(Figure1).mark_bar().encode(
-        x = alt.X('Shot Distance'),
+        x = alt.X('Shot Distance', sort=('2P', '0-3', '3-10', '10-16', '16-3P', '3P')),
         y = alt.Y('FG%',
-              scale = alt.Scale(domain =[0, 1]))).properties(width=400,height=400)
+              scale = alt.Scale(domain =[0, 1])),color=alt.Color('FG%', scale=alt.Scale(scheme='inferno'))).properties(width=400,height=400)
     BarGraph2 = alt.Chart(Figure2).mark_bar().encode(
-        x = alt.X('Shot Distance'),
+        x = alt.X('Shot Distance',sort=('2P', '0-3', '3-10', '10-16', '16-3P', '3P')),
         y = alt.Y('% of FG taken', 
-              scale = alt.Scale(domain =[0, 1]))).properties(width=400, height=400)
+              scale = alt.Scale(domain =[0, 1])), color=alt.Color('% of FG taken', scale=alt.Scale(scheme='inferno'))).properties(width=400, height=400)
     CombinedGraph = alt.vconcat(BarGraph1,BarGraph2)
     st.altair_chart(CombinedGraph)
+st.markdown('*****2P is the average of all shooting distances until the 3P line')
+st.markdown('*****2PA is the total of all shooting distances until the 3P line')
     
 
 # if PlayerName == 'Name':
